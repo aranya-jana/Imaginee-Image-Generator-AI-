@@ -14,7 +14,7 @@ const Header = () => {
 
         <p className=' text-white text-center max-w-xl mx-auto mt-5'>Imaginee transforms text into stunning visuals instantly.
             Create captivating images effortlessly with your words!</p>
-        <button className='sm:text-lg text-white bg-black/50 shadow-black/40 shadow-md hover:scale-[1.02] transition-all ease-in-out duration-300 border border-white/10 w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full'>
+        <button className='sm:text-lg text-white bg-black/50 shadow-black/40 shadow-md hover:scale-[1.02] transition-all ease-in-out duration-300 border border-white/10 w-auto mt-8 md:mb-48 px-12 py-2.5 flex items-center gap-2 rounded-full'>
 
             Genarate Image
             <img className="h-6" src={assets.star_group} alt="" />

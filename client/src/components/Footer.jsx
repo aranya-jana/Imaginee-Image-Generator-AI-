@@ -3,7 +3,7 @@ import { assets } from '../assets/assets';
 
 const Footer = () => {
   return (
-    <footer className="flex flex-wrap items-center justify-between gap-4 py-4 mt-16 md:mt-64  text-white">
+    <footer className="flex flex-wrap items-center justify-between gap-4 py-4 mt-16 md:mt-30  text-white">
       {/* Text Section */}
       <p className="w-full md:w-auto text-center md:text-left flex-1 pl-4 text-sm">
         © Imaginee | All Rights Reserved
