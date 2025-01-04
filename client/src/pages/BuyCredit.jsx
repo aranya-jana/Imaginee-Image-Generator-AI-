@@ -2,7 +2,10 @@ import React from 'react'
 
 const BuyCredit = () => {
   return (
-    <div>BuyCredit</div>
+    <div className='min-h-[80vh] text-center pt-14 mb-10'>
+      <button>Our Plans</button>
+      <h1>Upgrade your plan</h1>
+    </div>
   )
 }
 
