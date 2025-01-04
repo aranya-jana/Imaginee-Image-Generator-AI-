@@ -8,13 +8,15 @@ const BuyCredit = () => {
       <h1 className='text-center text-3xl font-medium mb-6 sm:mb-10 text-white'>Upgrade your plan</h1>
 
 
-      <div>
+      <div className='flex flex-wrap justify-center gap-6 text-left'>
         {plans.map ((item, index)=>(
-          <div key={index}>
-            <img src={assets.logo_icon} alt="" />
-            <p>{item.id}</p>
-            <p>{item.desc}</p>
-            <p>₹{item.price} / {item.credits} credits</p>
+          <div key={index} className='bg-slate-700  drop-shadow-sm border border-slate-500 rounded-lg py-12 px-8 text-gray-200
+          hover:scale-105 transition-all duration-500'>
+            <img width={40} src={assets.logo_icon} alt="" />
+            <p className='mt-3 mb-1 font-semibold'>{item.id}</p>
+            <p className='text-sm'>{item.desc}</p>
+            <p className='mt-6 '>
+              <span className='text-3xl font-medium'> ₹{item.price} </span> / {item.credits} credits</p>
           </div>
         ))}
       </div>
