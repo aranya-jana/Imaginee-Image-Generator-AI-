@@ -14,6 +14,17 @@ const Login = () => {
             <img className="custom-class" style={{ width: 25 }} src={assets.profile_icon} alt="" />
             <input type="text" className='outline-none text-sm' placeholder='Full Name' required/>
         </div>
+
+        <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-4'>
+            <img src={assets.email_icon} alt="" />
+            <input type="email" className='outline-none text-sm' placeholder='Email id' required/>
+        </div>
+
+        <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-4'>
+            <img src={assets.lock_icon} alt="" />
+            <input type="password" className='outline-none text-sm' placeholder='Password' required/>
+        </div>
+
     </form>
 
     </div>
