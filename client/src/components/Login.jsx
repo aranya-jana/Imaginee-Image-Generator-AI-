@@ -25,6 +25,8 @@ const Login = () => {
             <input type="password" className='outline-none text-sm' placeholder='Password' required/>
         </div>
 
+        <p className='text-sm text-green-500 my-p cursor-pointer'>Forgot Password</p>
+
     </form>
 
     </div>
