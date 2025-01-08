@@ -25,7 +25,9 @@ const Login = () => {
             <input type="password" className='outline-none text-sm' placeholder='Password' required/>
         </div>
 
-        <p className='text-sm text-green-500 my-p cursor-pointer'>Forgot Password</p>
+        <p className='text-sm text-green-500 my-3 cursor-pointer'>Forgot Password?</p>
+
+        <button className='bg-slate-900 w-full text-white py-2 rounded-full'>Create account</button>
 
     </form>
 
