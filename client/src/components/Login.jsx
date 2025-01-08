@@ -30,13 +30,13 @@ const Login = () => {
 
         <p className='text-sm text-green-500 my-3 cursor-pointer'>Forgot Password?</p>
 
-        <button className='bg-slate-900 w-full text-white py-2 rounded-full'>Create account</button>
+        <button className='bg-slate-900 w-full text-white py-2 rounded-full'>{state === 'Log in' ? 'login' : 'Create Account'}</button>
 
-        <p className='mt-5 text-center'>Don't have an account? <span className='text-green-500 
+        {state ==='Log in' ? <p className='mt-5 text-center'>Don't have an account? <span className='text-green-500 
         cursor-pointer'>Sign up</span></p>
-
+        :
         <p className='mt-5 text-center'>Already have an account? <span className='text-green-500 
-        cursor-pointer'>Log in</span></p>
+        cursor-pointer'>Log in</span></p>}
 
         <img src={assets.cross_icon} alt="" className='absolute top-5 right-5 cursor-pointer'/>
 
