@@ -11,7 +11,7 @@ const Login = () => {
         <p className='text-sm'>Welcome back! Please log in to proceed</p>
 
         <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-5'>
-            <img src={assets.user_icon} alt="" />
+            <img className="custom-class" style={{ width: 25 }} src={assets.profile_icon} alt="" />
             <input type="text" className='outline-none text-sm' placeholder='Full Name' required/>
         </div>
     </form>
