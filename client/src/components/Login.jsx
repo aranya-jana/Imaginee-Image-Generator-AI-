@@ -33,12 +33,12 @@ const Login = () => {
         <button className='bg-slate-900 w-full text-white py-2 rounded-full'>{state === 'Log in' ? 'login' : 'Create Account'}</button>
 
         {state ==='Log in' ? <p className='mt-5 text-center'>Don't have an account? <span className='text-green-500 
-        cursor-pointer'>Sign up</span></p>
+        cursor-pointer' onClick={()=>setState('Sign up')}>Sign up</span></p>
         :
         <p className='mt-5 text-center'>Already have an account? <span className='text-green-500 
-        cursor-pointer'>Log in</span></p>}
+        cursor-pointer'  onClick={()=>setState('Log in')} >Log in</span></p>}
 
-        <img src={assets.cross_icon} alt="" className='absolute top-5 right-5 cursor-pointer'/>
+        <img src={assets.cross_icon} alt=" " className='absolute top-5 right-5 cursor-pointer'/>
 
     </form>
 
