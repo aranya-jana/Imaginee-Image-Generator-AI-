@@ -31,11 +31,19 @@ const Header = () => {
         animate ={{opacity : 1, y:0}}
         transition ={{ delay : 0.6, duration: 0.8}}
         >Imaginee transforms text into stunning visuals instantly. Create captivating images effortlessly with your words!</motion.p>
-        <button className='sm:text-lg text-white bg-black/50 shadow-black/40 shadow-md hover:scale-[1.02] transition-all ease-in-out duration-300 border border-white/10 w-auto mt-8 md:mb-48 px-12 py-2.5 flex items-center gap-2 rounded-full'>
+        <motion.button className='sm:text-lg text-white bg-black/50 shadow-black/40 
+        shadow-md hover:scale-[1.02] transition-all ease-in-out duration-300 border 
+        border-white/10 w-auto mt-8 md:mb-48 px-12 py-2.5 flex items-center gap-2 rounded-full'
+        whileHover={{scale: 1.05}}
+        whileTap={{scale: 0.95}}
+        initial={{opacity : 0}}
+        animate ={{opacity: 1}}
+        transition={{ duration: 0.5, opacity: { delay: 0.8, duration: 1 } }}
+        >
 
             Genarate Image
             <img className="h-6" src={assets.star_group} alt="" />
-        </button>
+        </motion.button>
 
     </motion.div>
   )
