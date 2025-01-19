@@ -1,6 +1,6 @@
 import React from 'react'
 import { assets } from '../assets/assets'
-import {motion} from "framer-motion"
+import {delay, motion} from "framer-motion"
 
 const Header = () => {
   return (
@@ -20,7 +20,11 @@ const Header = () => {
         </motion.div>
 
         <motion.h1 className='text-slate-300 text-3xl max-w-[180px] sm:text-6xl sm:max-w-[550px] mx-auto mt-10 
-        text-center'><span className='text-[#58da20]'>Text</span>-to-<span className='text-[#58da20]'>Image</span> Generator</motion.h1>
+        text-center'><span className='text-[#58da20]'>Text</span>-to-<span className='text-[#58da20]'
+        initial={{opacity : 0}}
+        animate ={{opacity : 1}}
+        transition ={{ delay : 0.4, duration: 2}}
+        >Image</span> Generator</motion.h1>
 
         <p className=' text-white text-center max-w-xl mx-auto mt-5'>Imaginee transforms text into stunning visuals instantly.
             Create captivating images effortlessly with your words!</p>
