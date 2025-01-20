@@ -30,7 +30,7 @@ const registerUser = async (req, res)=> {
 
     } catch (error) {
         console.log(error)
-        response.json({sucess: false, message: error.message})
+        res.json({sucess: false, message: error.message})
     }
 
 }
@@ -39,7 +39,24 @@ const loginUser = async (req, res)=>{
     try {
         const {email, password} = req.body;
         const user = await userModel.findOne({email})
+
+        if(!user){
+            return res({sucess:false, message: 'User does not exist'})
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        if(isMatch){
+            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET)
+
+            res.jsn({sucess: true, token, user:{name: user.name}})
+
+        }else{
+            return res({sucess:false, message: 'Invalid credentials'})
+        }
+
     } catch (error) {
-        
+        console.log(error)
+        res.json({sucess: false, message: error.message})
     }
 }
