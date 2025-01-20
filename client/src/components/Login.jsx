@@ -21,10 +21,12 @@ const Login = () => {
     flex justify-center items-center'>
 
     <motion.form
-        initial={{opacity: 0.2, y : 50}}
-        transition={{duration: 0.3}}
-        whileInView={{opacity: 1, y: 0}}
-        viewport={{once: true}}
+        initial={{ opacity: 0, y: 50, scale: 0.8 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: "spring", stiffness: 120, damping: 10 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true }}
+        
     className='relative bg-white p-10 rounded-xl text-slate-600'>
         <h1 className='text-center text-2xl text-neutral-700 font-medium'>{state}</h1>
         <p className='text-sm'>Welcome back! Please log in to proceed</p>
