@@ -38,7 +38,7 @@ const registerUser = async (req, res)=> {
 const loginUser = async (req, res)=>{
     try {
         const {email, password} = req.body;
-        const user = await
+        const user = await userModel.findOne({email})
     } catch (error) {
         
     }
