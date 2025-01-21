@@ -1,7 +1,7 @@
 import { request } from 'express';
 import jwt from 'jsonwebtoken'
 
-const userAuth = async(requestAnimationFrame, resizeBy, next) => {
+const userAuth = async(req, res, next) => {
     const {token} = req.headers;
 
     if (!token) {
