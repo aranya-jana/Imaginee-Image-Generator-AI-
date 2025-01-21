@@ -19,7 +19,9 @@ const userAuth = async(requestAnimationFrame, resizeBy, next) => {
         }
 
     } catch (error) {
-        
+        res.json({success: false, message: 'error.message'});
     }
 
-}
+};
+
+export default userAuth;

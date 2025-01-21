@@ -74,4 +74,4 @@ const userCredits= async (req, res)=>{
 
 }
 
-export{registerUser, loginUser}
+export{registerUser, loginUser, userCredits}
