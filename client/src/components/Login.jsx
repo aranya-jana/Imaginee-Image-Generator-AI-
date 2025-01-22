@@ -8,6 +8,10 @@ const Login = () => {
     const [state, setState] = useState('Log in')
     const {setShowLogin} = useContext(AppContext)
 
+    const [name, setName] = useState ('')
+    const [email, setEmail] = useState ('')
+    const [password, setPassword] = useState ('')
+
     useEffect(()=>{
         document.body.style.overflow = 'hidden';
 
@@ -33,17 +37,20 @@ const Login = () => {
 
         {state !== 'Log in' && <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-5'>
             <img className="custom-class" style={{ width: 25 }} src={assets.profile_icon} alt="" />
-            <input type="text" className='outline-none text-sm' placeholder='Full Name' required/>
+
+            <input onChange={e => (setName(e.target.value))} value={name} type="text" className='outline-none text-sm' placeholder='Full Name' required/>
         </div>}
 
         <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-4'>
             <img src={assets.email_icon} alt="" />
-            <input type="email" className='outline-none text-sm' placeholder='Email id' required/>
+
+            <input onChange={e => (setEmail(e.target.value))} value={email}  type="email" className='outline-none text-sm' placeholder='Email id' required/>
         </div>
 
         <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-4'>
             <img src={assets.lock_icon} alt="" />
-            <input type="password" className='outline-none text-sm' placeholder='Password' required/>
+
+            <input onChange={e => (setPassword(e.target.value))} value={password}  type="password" className='outline-none text-sm' placeholder='Password' required/>
         </div>
 
         <p className='text-sm text-green-500 my-3 cursor-pointer'>Forgot Password?</p>
