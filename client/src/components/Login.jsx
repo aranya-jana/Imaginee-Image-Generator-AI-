@@ -20,7 +20,7 @@ const Login = () => {
 
         try {
             
-            if(state === Login){
+            if(state === 'Log in'){
                 const{data} = await axios.post(backendUrl + '/api/user/login', {email, password})
 
                 if(data.success){
@@ -45,7 +45,7 @@ const Login = () => {
             }
 
         } catch (error) {
-            toast.error(data.message)
+            toast.error(error.message)
         }
     }
 
