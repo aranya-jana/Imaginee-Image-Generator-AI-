@@ -1,4 +1,5 @@
 import axios from "axios";
+import { use, useEffect } from "react";
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -14,7 +15,12 @@ const AppConstextProvider = (props) => {
 
     const loadCreditsData = async () =>{
         try {
-            const {data}  = await axios.get()
+            const {data}  = await axios.get(backendUrl + '/api/user/credits', {headers: {token}})
+
+            if(data.success){
+                setCredit(data.credits)
+                setUser(data.user)
+            }
         } catch (error) {
             console.log(error)
             toast.error(error.message)
@@ -22,8 +28,21 @@ const AppConstextProvider = (props) => {
         }
     }
 
+    const logout = ()=> {
+        localStorage.removeItem('token');
+        setToken(' ')
+        setUser(null)
+    }
+
+    useEffect(()=>{
+        if(token){
+            loadCreditsData()
+        }
+    },[token])
+
+
     const value = {
-        user,setUser,showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit
+        user,setUser,showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditsData, logout
 
     }
     return(
