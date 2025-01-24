@@ -1,79 +1,74 @@
 import axios from "axios";
-import { use, useEffect } from "react";
-import { createContext, useState } from "react";
+import { useEffect, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export const AppContext = createContext()
+export const AppContext = createContext();
 
-const AppConstextProvider = (props) => {
-    const [user, setUser] = useState (null);
-    const [showLogin, setShowLogin] = useState (false);
-    const [token, setToken] = useState(localStorage.getItem('token'))
-    const [credit, setCredit] = useState(false)
+const AppContextProvider = (props) => {
+    const [user, setUser] = useState(null);
+    const [showLogin, setShowLogin] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [credit, setCredit] = useState(false);
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-    const navigate = useNavigate
+    const navigate = useNavigate(); // Fixed
 
-    const loadCreditsData = async () =>{
+    const loadCreditsData = async () => {
         try {
-            const {data}  = await axios.get(backendUrl + '/api/user/credits', {headers: {token}})
+            const { data } = await axios.get(`${backendUrl}/api/user/credits`, { headers: { token } });
 
-            if(data.success){
-                setCredit(data.credits)
-                setUser(data.user)
+            if (data.success) {
+                setCredit(data.credits);
+                setUser(data.user);
             }
         } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-            
+            console.log(error);
+            toast.error(error.message);
         }
-    }
+    };
 
-    const generateImage= async (prompt) => {
+    const generateImage = async (prompt) => {
         try {
-            const{data} = await axios.post(backendUrl + '/api/image/generate-image', {prompt}, {headers: {token}})
+            const { data } = await axios.post(`${backendUrl}/api/image/generate-image`, { prompt }, { headers: { token } });
 
-            if(data.success){
-                loadCreditsData()
-                return data.resultImage
-            }else{
-                toast.error(data.message)
-                loadCreditsData()
-                if(data.creditBalance === 0){
-                    navigate('/buy')
+            if (data.success) {
+                loadCreditsData();
+                return data.resultImage;
+            } else {
+                toast.error(data.message);
+                loadCreditsData();
+                if (data.creditBalance === 0) {
+                    navigate('/buy');
                 }
             }
-
-
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error.message);
         }
-    }
+    };
 
-    const logout = ()=> {
+    const logout = () => {
         localStorage.removeItem('token');
-        setToken(' ')
-        setUser(null)
-    }
+        setToken(null); // Fixed
+        setUser(null);
+    };
 
-    useEffect(()=>{
-        if(token){
-            loadCreditsData()
+    useEffect(() => {
+        if (token) {
+            loadCreditsData();
         }
-    },[token])
-
+    }, [token]);
 
     const value = {
-        user,setUser,showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditsData, logout, generateImage
+        user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditsData, logout, generateImage
+    };
 
-    }
-    return(
+    return (
         <AppContext.Provider value={value}>
             {props.children}
         </AppContext.Provider>
-    )
-}
+    );
+};
 
-export default AppConstextProvider
+export default AppContextProvider;
