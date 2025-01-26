@@ -9,7 +9,7 @@ const Result = () => {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
 
-  const { generateImage } = useContext(AppContext);
+  const { generateImage } = useContext (AppContext);
 
   const onSubmitHandler = async (e) => { 
     e.preventDefault(); // Fixed typo
