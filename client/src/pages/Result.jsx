@@ -23,7 +23,7 @@ const Result = () => {
       setImage(generatedImage);
       setIsImageLoaded(true);
     }
-
+0
     setLoading(false);
   };
 
