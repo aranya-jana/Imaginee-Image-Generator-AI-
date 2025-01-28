@@ -85,6 +85,23 @@ const paymentRazorpay = async(req, res)=>{
         
         const {userId, planId} = req.body
 
+        const userData = await userModel.findById(userId)
+
+        if(!userId || !planId){
+            return res.json({success: false, message: 'Missing Details'})
+        }
+
+        let credits, plan, amount, date
+
+        switch (planId) {
+            case value:
+                
+                break;
+        
+            default:
+                break;
+        }
+
     } catch (error) {
         console.log(error)
         res.json({success: false, message: error.message})
