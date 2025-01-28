@@ -94,12 +94,26 @@ const paymentRazorpay = async(req, res)=>{
         let credits, plan, amount, date
 
         switch (planId) {
-            case value:
-                
+            case 'Basic':
+                plan = 'Basic'
+                credits = 100
+                amount = 10
                 break;
+
+            case 'Advanced':
+                plan = 'Advanced'
+                credits = 500
+                amount = 50
+                break;
+
+            case 'Business':
+            plan = 'Business'
+            credits = 5000
+            amount = 250
+            break;
         
             default:
-                break;
+                return res,json({success: false, message: 'plan not found'});
         }
 
     } catch (error) {
