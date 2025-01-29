@@ -12,14 +12,22 @@ const {user, backendUrl, loadCreditsData, token, setShowLogin} = useContext(AppC
 
 const navigate = useNavigate()
 
+const initPay = async(order) =>{
+
+}
+
+
 const paymentRazorpay = async (planId) =>{
   try {
     if(!user){
       setShowLogin(true)
     }
 
-    await axios.post(backendUrl + '/api/user/pay-razor', {planId}, {headers: {token}})
+    const {data} = await axios.post(backendUrl + '/api/user/pay-razor', {planId}, {headers: {token}})
 
+    if (data.succes) {
+      initPay(data.order)
+    }
 
   } catch (error) {
     toast.error(error.message)
@@ -47,7 +55,7 @@ const paymentRazorpay = async (planId) =>{
             <p className='text-sm'>{item.desc}</p>
             <p className='mt-6'>
               <span className='text-3xl font-medium'> ₹{item.price} </span> / {item.credits} credits</p>
-              <button className='w-full bg-green-600 text-white mt-8 text-sm
+              <button onClick={()=>paymentRazorpay(item.id)} className='w-full bg-green-600 text-white mt-8 text-sm
               rounded-md py-2.5 min-w-52'>{user ? 'Buy Now' : 'Log in to Buy'}</button>
           </div>
         ))}
