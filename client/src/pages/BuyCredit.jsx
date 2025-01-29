@@ -18,7 +18,7 @@ const paymentRazorpay = async (planId) =>{
       setShowLogin(true)
     }
 
-    await axios.post(backendUrl + '/api/user/pay-razor')
+    await axios.post(backendUrl + '/api/user/pay-razor', {planId}, {headers: {token}})
 
 
   } catch (error) {
