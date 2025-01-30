@@ -1,80 +1,88 @@
-import React from 'react'
-import { assets, plans } from '../assets/assets'
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
-import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import axios from 'axios'
+import React, { useContext } from 'react';
+import { assets, plans } from '../assets/assets';
+import { AppContext } from '../context/AppContext';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const BuyCredit = () => {
-const {user, backendUrl, loadCreditsData, token, setShowLogin} = useContext(AppContext)
+  const { user, backendUrl, loadCreditsData, token, setShowLogin } = useContext(AppContext);
+  const navigate = useNavigate();
 
-const navigate = useNavigate()
-
-const initPay = async(order) =>{
-  const options ={
-    key: import.meta.env.VITE_RAZORPAY_KEY_ID ,
-    amount: order.amount,
-    currency: order.currency,
-    name: 'Credits Payment',
-    description: 'Credits Payment',
-    order_id: order.id,
-    receipt: order.receipt,
-    handler: async (response)=>{
-      console.log(response);
-    }
-  }
-  const rzp = new window.Razorpay(options)
-  rzp.open()
-}
-
-
-const paymentRazorpay = async (planId) =>{
-  try {
-    if(!user){
-      setShowLogin(true)
+  const initPay = async (order) => {
+    if (!window.Razorpay) {
+      toast.error("Razorpay SDK failed to load. Please check your internet connection.");
+      return;
     }
 
-    const {data} = await axios.post(backendUrl + '/api/user/pay-razor', {planId}, {headers: {token}})
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: 'Credits Payment',
+      description: 'Credits Payment',
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        try {
+          await axios.post(`${backendUrl}/api/user/verify-payment`, response, { headers: { token } });
+          toast.success("Payment successful!");
+          loadCreditsData();
+        } catch (error) {
+          toast.error("Payment verification failed. Please contact support.");
+        }
+      },
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
 
-    if (data.succes) {
-      initPay(data.order)
+  const paymentRazorpay = async (planId) => {
+    try {
+      if (!user) {
+        setShowLogin(true);
+        return;
+      }
+
+      const { data } = await axios.post(`${backendUrl}/api/user/pay-razor`, { planId }, { headers: { token } });
+
+      if (data.success) {
+        initPay(data.order);
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
-
-  } catch (error) {
-    toast.error(error.message)
-  }
-}
-
+  };
 
   return (
     <motion.div 
-      initial={{opacity: 0.2, y : 100}}
-      transition={{duration: 1}}
-      whileInView={{opacity: 1, y: 0}}
-      viewport={{once: true}}
-    className='min-h-[80vh] text-center pt-14 mb-10'>
-      <button className=' border border-gray-400 px-10 py-2 rounded-full mb-6 text-white'>Our Plans</button>
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className='min-h-[80vh] text-center pt-14 mb-10'>
+      
+      <button className='border border-gray-400 px-10 py-2 rounded-full mb-6 text-white'>Our Plans</button>
       <h1 className='text-center text-3xl font-medium mb-6 sm:mb-10 text-white'>Upgrade your plan</h1>
 
-
       <div className='flex flex-wrap justify-center gap-6 text-left'>
-        {plans.map ((item, index)=>(
-          <div key={index} className='bg-slate-800  drop-shadow-sm border border-slate-600 rounded-lg py-12 px-8 text-gray-200
-          hover:scale-105 transition-all duration-500'>
+        {plans.map((item, index) => (
+          <div key={index} className='bg-slate-800 drop-shadow-sm border border-slate-600 rounded-lg py-12 px-8 text-gray-200'>
             <img width={40} src={assets.logo_icon} alt="" />
             <p className='mt-3 mb-1 font-semibold'>{item.id}</p>
             <p className='text-sm'>{item.desc}</p>
             <p className='mt-6'>
-              <span className='text-3xl font-medium'> ₹{item.price} </span> / {item.credits} credits</p>
-              <button onClick={()=>paymentRazorpay(item.id)} className='w-full bg-green-600 text-white mt-8 text-sm
-              rounded-md py-2.5 min-w-52'>{user ? 'Buy Now' : 'Log in to Buy'}</button>
+              <span className='text-3xl font-medium'> ₹{item.price} </span> / {item.credits} credits
+            </p>
+            <button onClick={() => paymentRazorpay(item.id)} className='w-full bg-green-600 text-white mt-8 text-sm rounded-md py-2.5 min-w-52 hover:bg-white hover:text-black transition-all duration-500'>
+              {!user ? 'Log in to Buy' : 'Buy Now'}
+            </button>
           </div>
         ))}
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default BuyCredit
+export default BuyCredit;
