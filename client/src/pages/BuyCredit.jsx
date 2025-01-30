@@ -23,17 +23,28 @@ const BuyCredit = () => {
       name: 'Credits Payment',
       description: 'Credits Payment',
       order_id: order.id,
-      receipt: order.receipt,
       handler: async (response) => {
         try {
-          await axios.post(`${backendUrl}/api/user/verify-payment`, response, { headers: { token } });
-          toast.success("Payment successful!");
-          loadCreditsData();
+          const { data } = await axios.post(`${backendUrl}/api/user/verify-razor`, response, {
+            headers: { token }
+          });
+
+          if (data.success) {
+            loadCreditsData();
+            navigate('/');
+            toast.success('Credits Added Successfully');
+          } else {
+            toast.error("Payment verification failed. Please try again.");
+          }
         } catch (error) {
           toast.error("Payment verification failed. Please contact support.");
         }
       },
+      theme: {
+        color: "#3399cc",
+      }
     };
+
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
@@ -45,13 +56,22 @@ const BuyCredit = () => {
         return;
       }
 
-      const { data } = await axios.post(`${backendUrl}/api/user/pay-razor`, { planId }, { headers: { token } });
+      if (!token) {
+        toast.error("Authentication token missing.");
+        return;
+      }
+
+      const { data } = await axios.post(`${backendUrl}/api/user/pay-razor`, { userId: user._id, planId }, {
+        headers: { token }
+      });
 
       if (data.success) {
         initPay(data.order);
+      } else {
+        toast.error(data.message || "Payment initiation failed.");
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
 
@@ -75,7 +95,9 @@ const BuyCredit = () => {
             <p className='mt-6'>
               <span className='text-3xl font-medium'> ₹{item.price} </span> / {item.credits} credits
             </p>
-            <button onClick={() => paymentRazorpay(item.id)} className='w-full bg-green-600 text-white mt-8 text-sm rounded-md py-2.5 min-w-52 transition-all duration-500 hover:bg-blue-400 hover:text-white'>
+            <button 
+              onClick={() => paymentRazorpay(item.id)} 
+              className='w-full bg-green-600 text-white mt-8 text-sm rounded-md py-2.5 min-w-52 transition-all duration-500 hover:bg-blue-400 hover:text-white'>
               {!user ? 'Log in to Buy' : 'Buy Now'}
             </button>
           </div>
