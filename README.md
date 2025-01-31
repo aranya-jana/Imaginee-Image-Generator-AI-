@@ -13,6 +13,7 @@ Imaginee is an AI-powered image generation web application built using the MERN 
 - Responsive UI built with React and Tailwind CSS
 - RESTful API with Express.js and MongoDB
 - State management using Redux (if applicable)
+- Razor Pay payment gateway
 - Deployment-ready configuration
 
 ## Tech Stack
@@ -20,8 +21,7 @@ Imaginee is an AI-powered image generation web application built using the MERN 
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Authentication:** JWT
-- **State Management:** Redux (if used)
-- **AI Model:** OpenAI/DALL·E or similar model
+- **AI Model:** CLIPDROP_API
 
 ## Installation
 1. Clone the repository:
