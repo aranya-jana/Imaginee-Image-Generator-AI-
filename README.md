@@ -44,12 +44,12 @@ Imaginee is an AI-powered image generation web application built using the MERN 
 1. Start the backend server:
    ```sh
    cd server
-   npm start
+   npm run server
    ```
 2. Start the frontend application:
    ```sh
    cd client
-   npm start
+   npm run dev
    ```
 3. Open `http://localhost:3000` in your browser to use Imaginee.
 
@@ -59,6 +59,8 @@ Create a `.env` file in the server directory and configure the following:
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-OPENAI_API_KEY=your_openai_api_key
+CLIPDROP_API = your_API_key
+RAZORPAY_KEY_ID= rzp_test_id
+RAZORPAY_KEY_SECRET= Your_RazorPay_Secret_Key
 ```
 
