@@ -1,5 +1,8 @@
 # Imaginee - Image Generator AI
 
+<img width="928" alt="image" src="https://github.com/user-attachments/assets/feee1548-08a8-4499-8b16-47830e06b36e" />
+
+
 ## Overview
 Imaginee is an AI-powered image generation web application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. It allows users to generate images using AI models and provides a seamless user experience.
 
